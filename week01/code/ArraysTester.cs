@@ -70,6 +70,8 @@ private static void RotateListRight(List<int> data, int amount)
      //  Iterate through the original list starting from the split index
      //  Add each element to the rotated list
      //  Iterate through the original list from the beginning up to the split index
+     // I need to somehow edit this rotate list first. Then find my way back to teh original list. 
+     
 
     int n = data.Count;
         amount = amount % n;
@@ -80,8 +82,8 @@ private static void RotateListRight(List<int> data, int amount)
     }
     for (int i = 0; i < n - amount; i++)
     {
-        // Cant remember what I need to iterate through again. I think I need to rorate again. Or reverse the list or somthing. 
-    }   // I need to somehow edit this rotate list first. Then find my way back to teh original list. 
+        //rotatedList(add.())
+    }   
     data.Clear();
     data.AddRange(rotatedList);
 }
