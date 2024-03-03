@@ -65,7 +65,7 @@ private static void RotateListRight(List<int> data, int amount)
 {
     
      //  Get the total number of elements in the list
-     // Handle wrapping around the index
+     // go around and wrap around the index
      //  Create a new list to store the rotated elements
      //  Iterate through the original list starting from the split index
      //  Add each element to the rotated list
