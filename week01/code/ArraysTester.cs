@@ -80,8 +80,8 @@ private static void RotateListRight(List<int> data, int amount)
     }
     for (int i = 0; i < n - amount; i++)
     {
-        //
-    }
+        // Cant remember what I need to iterate through again. I think I need to rorate again. Or reverse the list or somthing. 
+    }   // I need to somehow edit this rotate list first. Then find my way back to teh original list. 
     data.Clear();
     data.AddRange(rotatedList);
 }
