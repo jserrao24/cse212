@@ -40,9 +40,9 @@ public static class ArraysTester {
         // be implemented by another person.
 
         // Create an array to store the multiples.
-        // Use a loop to calculate the multiples by multiplying the starting number with integers from 1 to the number of multiples.
+        // Use a for loop to calculate the multiples by multiplying the starting number with integers from 1 to the number of multiples.
         // Add each calculated multiple to the array.
-        // Return the array.
+        // Return the multiple variable which holds the array.
 {
     var multiples = new double[length];
     for (int i = 0; i < length; i++)
