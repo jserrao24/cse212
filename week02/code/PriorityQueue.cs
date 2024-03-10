@@ -1,52 +1,80 @@
-﻿public class PriorityQueue {
-    private List<PriorityItem> _queue = new();
+﻿public class PriorityQueue
+{
+    private List<PriorityItem> _queue = new List<PriorityItem>();
 
     /// <summary>
-    /// Add a new value to the queue with an associated priority.  The
-    /// node is always added to the back of the queue irregardless of 
-    /// the priority.
+    /// Add a new value to the queue with an associated priority.
+    /// The node is added to the back of the queue based on priority.
     /// </summary>
     /// <param name="value">The value</param>
     /// <param name="priority">The priority</param>
-    public void Enqueue(string value, int priority) {
+    public void Enqueue(string value, int priority)
+    {
         var newNode = new PriorityItem(value, priority);
-        _queue.Add(newNode);
+
+        if (_queue.Count == 0 || priority > _queue[_queue.Count - 1].Priority)
+        {
+            _queue.Add(newNode);
+        }
+        else
+        {
+            int insertIndex = BinarySearchForInsertion(_queue, newNode);
+            _queue.Insert(insertIndex, newNode);
+        }
     }
 
-    public String Dequeue() {
-        if (_queue.Count == 0) // Verify the queue is not empty
+    private int BinarySearchForInsertion(List<PriorityItem> queue, PriorityItem item)
+    {
+        int low = 0;
+        int high = queue.Count;
+
+        while (low < high)
+        {
+            int mid = low + (high - low) / 2;
+            if (queue[mid].Priority < item.Priority)
+            {
+                low = mid + 1;
+            }
+            else
+            {
+                high = mid;
+            }
+        }
+        return low;
+    }
+
+    public String Dequeue()
+    {
+        if (_queue.Count == 0)
         {
             Console.WriteLine("The queue is empty.");
             return null;
         }
 
-        // Find the index of the item with the highest priority to remove
-        var highPriorityIndex = 0;
-        for (int index = 1; index < _queue.Count - 1; index++) {
-            if (_queue[index].Priority >= _queue[highPriorityIndex].Priority)
-                highPriorityIndex = index;
-        }
-
-        // Remove and return the item with the highest priority
-        var value = _queue[highPriorityIndex].Value;
+        var value = _queue[0].Value;
+        _queue.RemoveAt(0);
         return value;
     }
 
-    public override string ToString() {
+    public override string ToString()
+    {
         return $"[{string.Join(", ", _queue)}]";
     }
 }
 
-internal class PriorityItem {
+internal class PriorityItem
+{
     internal string Value { get; set; }
     internal int Priority { get; set; }
 
-    internal PriorityItem(string value, int priority) {
+    internal PriorityItem(string value, int priority)
+    {
         Value = value;
         Priority = priority;
     }
 
-    public override string ToString() {
+    public override string ToString()
+    {
         return $"{Value} (Pri:{Priority})";
     }
 }
