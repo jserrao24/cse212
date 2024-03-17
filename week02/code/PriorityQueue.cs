@@ -18,12 +18,12 @@
         }
         else
         {
-            int insertIndex = BinarySearchForInsertion(_queue, newNode);
+            int insertIndex = SearchForInsertion(_queue, newNode);
             _queue.Insert(insertIndex, newNode);
         }
     }
 
-    private int BinarySearchForInsertion(List<PriorityItem> queue, PriorityItem item)
+    private int SearchForInsertion(List<PriorityItem> queue, PriorityItem item)
     {
         int low = 0;
         int high = queue.Count;

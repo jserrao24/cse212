@@ -26,6 +26,12 @@ public static class SetsAndMapsTester {
         // 94 & 49
         // 31 & 13
 
+
+    
+
+
+        
+
         // Problem 2: Degree Summary
         // Sample Test Cases (may not be comprehensive) 
         Console.WriteLine("\n=========== Census TESTS ===========");
@@ -107,11 +113,34 @@ public static class SetsAndMapsTester {
     /// that there were no duplicates) and therefore should not be displayed.
     /// </summary>
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
-    private static void DisplayPairs(string[] words) {
-        // To display the pair correctly use something like:
-        // Console.WriteLine($"{word} & {pair}");
-        // Each pair of words should displayed on its own line.
+private static void DisplayPairs(string[] words)
+{
+    var originals = new HashSet<string>();
+    var pairCount = 0;
+
+    foreach (var word in words)
+    {
+        char[] strArray = word.ToCharArray();
+        Array.Reverse(strArray);
+        string pair = new string(strArray);
+
+        // Need to look to see if the symmetric pair exists in the HashSet, if its not then going to do the pair  count thing below shoing no pairs. 
+        if (originals.Contains(pair) && word != pair)
+        {
+            Console.WriteLine($"{word} & {pair}");
+            pairCount++;
+        }
+        else
+        {
+            originals.Add(word);
+        }
     }
+
+    if (pairCount == 0)
+    {
+        Console.WriteLine("There are no pairs");
+    }
+}
 
     /// <summary>
     /// Read a census file and summarize the degrees (education)
@@ -127,13 +156,26 @@ public static class SetsAndMapsTester {
     /// #############
     /// # Problem 2 #
     /// #############
-    private static Dictionary<string, int> SummarizeDegrees(string filename) {
+    private static Dictionary<string, int> SummarizeDegrees(string filename)
+    {
         var degrees = new Dictionary<string, int>();
-        foreach (var line in File.ReadLines(filename)) {
-            var fields = line.Split(",");
-            // Todo Problem 2 - ADD YOUR CODE HERE
-        }
 
+        foreach (var line in File.ReadLines(filename))
+        {
+            var fields = line.Split(',');
+
+            var degree = fields[3].Trim(); 
+
+            if (degrees.ContainsKey(degree))
+            {    
+                degrees[degree]++;
+            }
+            else
+            {
+                // If the degree doesn't exist, add it to the dictionary with a count of 1
+                degrees[degree] = 1;
+            }
+        }
         return degrees;
     }
 
@@ -156,11 +198,51 @@ public static class SetsAndMapsTester {
     /// #############
     /// # Problem 3 #
     /// #############
-    private static bool IsAnagram(string word1, string word2) {
-        // Todo Problem 3 - ADD YOUR CODE HERE
-        return false;
+   private static bool IsAnagram(string word1, string word2)
+    {
+        // Remove spaces and convert to lowercase to make it all the same so can be compared easier
+        // Create two dictionaries to store character counts
+        // Count the characters in word1
+         // Count the characters in word2
+        word1 = word1.Replace(" ", "").ToLower();
+        word2 = word2.Replace(" ", "").ToLower();
+        
+        Dictionary<char, int> count1 = new Dictionary<char, int>();
+        Dictionary<char, int> count2 = new Dictionary<char, int>();
+
+        foreach (char c in word1)
+        {
+            if (count1.ContainsKey(c))
+                count1[c]++;
+            else
+                count1[c] = 1;
+        }
+
+        foreach (char c in word2)
+        {
+            if (count2.ContainsKey(c))
+                count2[c]++;
+            else
+                count2[c] = 1;
+        }
+
+        return DictionaryEqual(count1, count2);
     }
 
+    private static bool DictionaryEqual<TKey, TValue>(
+        IDictionary<TKey, TValue> dict1, IDictionary<TKey, TValue> dict2)
+    {
+        if (dict1.Count != dict2.Count)
+            return false;
+
+        foreach (var kvp in dict1)
+        {
+            if (!dict2.TryGetValue(kvp.Key, out TValue value) || !value.Equals(kvp.Value))
+                return false;
+        }
+
+        return true;
+    }
     /// <summary>
     /// Sets up the maze dictionary for problem 4
     /// </summary>

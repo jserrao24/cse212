@@ -22,22 +22,30 @@ public class Maze {
     public Maze(Dictionary<ValueTuple<int, int>, bool[]> mazeMap) {
         _mazeMap = mazeMap;
     }
-
+    // I have no idea why its giving me cant go that way for some of the valid test...
     // Todo Maze Problem - ADD YOUR CODE HERE
     /// <summary>
     /// Check to see if you can move left.  If you can, then move.  If you
     /// can't move, then display "Can't go that way!"
     /// </summary>
     public void MoveLeft() {
-        // FILL IN CODE
+           if (_mazeMap.TryGetValue((_currX - 1, _currY), out bool[] directions) && directions[0]) {
+            _currX--;
+        } else {
+            Console.WriteLine("Can't go that way!");
+        }
     }
 
     /// <summary>
     /// Check to see if you can move right.  If you can, then move.  If you
     /// can't move, then display "Can't go that way!"
     /// </summary>
-    public void MoveRight() {
-        // FILL IN CODE
+       public void MoveRight() {
+        if (_mazeMap.TryGetValue((_currX + 1, _currY), out bool[] directions) && directions[1]) {
+            _currX++;
+        } else {
+            Console.WriteLine("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -45,7 +53,11 @@ public class Maze {
     /// can't move, then display "Can't go that way!"
     /// </summary>
     public void MoveUp() {
-        // FILL IN CODE
+              if (_mazeMap.TryGetValue((_currX, _currY - 1), out bool[] directions) && directions[2]) {
+            _currY--;
+        } else {
+            Console.WriteLine("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -53,7 +65,11 @@ public class Maze {
     /// can't move, then display "Can't go that way!"
     /// </summary>
     public void MoveDown() {
-        // FILL IN CODE
+             if (_mazeMap.TryGetValue((_currX, _currY + 1), out bool[] directions) && directions[3]) {
+            _currY++;
+        } else {
+            Console.WriteLine("Can't go that way!");
+        }
     }
 
     public void ShowStatus() {

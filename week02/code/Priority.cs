@@ -2,7 +2,7 @@
 {
     public static void Test()
     {
-        // Using the priority queue
+        
         var priorityQueue = new PriorityQueue();
         Console.WriteLine(priorityQueue); // Output: []
 
